@@ -2,10 +2,36 @@ import React, { useState, useEffect } from "react";
 import { weddingConfig } from "../config/weddingConfig";
 import { MapPin, ExternalLink, Calendar as CalendarIcon, Sparkles } from "lucide-react";
 
+// Import authentic atmospheric ceremony backgrounds
+import bgKhalMitti from "../assets/images/ceremonies/bg_khal_mitti.jpg";
+import bgHaldi from "../assets/images/ceremonies/bg_haldi.jpg";
+import bgMandap from "../assets/images/ceremonies/bg_mandap.jpg";
+import bgMaayan from "../assets/images/ceremonies/bg_maayan.jpg";
+import bgMamera from "../assets/images/ceremonies/bg_mamera.jpg";
+import bgSangeet from "../assets/images/ceremonies/bg_sangeet.jpg";
+import bgSagai from "../assets/images/ceremonies/bg_sagai.jpg";
+import bgBaraat from "../assets/images/ceremonies/bg_baraat.jpg";
+import bgReception from "../assets/images/ceremonies/bg_reception.jpg";
+import bgVivah from "../assets/images/ceremonies/bg_vivah.jpg";
+
+const ceremonyBackgrounds = {
+  "khal-mitti": bgKhalMitti,
+  "mata-poojan-haldi": bgHaldi,
+  "mandap": bgMandap,
+  "maayan-poojan": bgMaayan,
+  "mamera": bgMamera,
+  "mahila-sangeet": bgSangeet,
+  "sagai": bgSagai,
+  "var-nikasi": bgBaraat,
+  "varmala-reception": bgReception,
+  "shubh-vivah": bgVivah,
+};
+
 export const CeremonyCards = () => {
   const { events, couple, eventsSection } = weddingConfig;
   const [activeDay, setActiveDay] = useState("all");
   const [lang, setLang] = useState("hi");
+  const [hoveredEventId, setHoveredEventId] = useState(null);
 
   // Listen for language synchronization from FormalCard or global toggle
   useEffect(() => {
@@ -71,13 +97,36 @@ export const CeremonyCards = () => {
     return `https://www.google.com/maps/search/?api=1&query=${query}`;
   };
 
+  // Active ceremony background: follows pointer hover immediately, or active day tab, or defaults to Khal Mitti
+  const activeBgId = hoveredEventId || (
+    activeDay === "08" ? "khal-mitti" :
+    activeDay === "09" ? "mata-poojan-haldi" :
+    activeDay === "10" ? "mandap" :
+    activeDay === "11" ? "mahila-sangeet" :
+    activeDay === "12" ? "shubh-vivah" :
+    "khal-mitti"
+  );
+
   return (
     <section
-      className={`section-wrap ${lang === "hi" ? "is-hindi-version" : "is-english-version"}`}
+      className={`section-wrap ceremonies-section ${lang === "hi" ? "is-hindi-version" : "is-english-version"}`}
       id="events"
       lang={lang}
     >
-      <div className="section-intro">
+      {/* Dynamic Ceremony Backgrounds that transition smoothly based on Pointer Hover */}
+      <div className="ceremony-dynamic-bg-container" aria-hidden="true">
+        {Object.entries(ceremonyBackgrounds).map(([id, bgUrl]) => (
+          <div
+            key={id}
+            className={`ceremony-bg-layer ${activeBgId === id ? "is-active" : ""}`}
+            style={{ backgroundImage: `url(${bgUrl})` }}
+          />
+        ))}
+        <div className="ceremony-bg-overlay" />
+      </div>
+
+      <div className="ceremony-content-inner">
+        <div className="section-intro">
         {/* Bilingual Language Selection Toolbar */}
         <div className="formal-lang-toolbar" style={{ marginBottom: "1.6rem" }}>
           <div className="formal-lang-pill-group" role="tablist" aria-label="Select Events Language">
@@ -164,8 +213,13 @@ export const CeremonyCards = () => {
               key={event.id}
               className={`arch-card card-${event.type} ${
                 lang === "hi" ? "is-hindi-version" : "is-english-version"
-              }`}
+              } ${activeBgId === event.id ? "is-hovered-ceremony" : ""}`}
               lang={lang}
+              onMouseEnter={() => setHoveredEventId(event.id)}
+              onMouseLeave={() => setHoveredEventId(null)}
+              onTouchStart={() => setHoveredEventId(event.id)}
+              onFocus={() => setHoveredEventId(event.id)}
+              onBlur={() => setHoveredEventId(null)}
             >
               <div>
                 {/* Auspicious Motif */}
@@ -228,6 +282,7 @@ export const CeremonyCards = () => {
             </article>
           );
         })}
+      </div>
       </div>
     </section>
   );

@@ -38,6 +38,6 @@ echo.
 echo ========================================================
 echo   Deployment successful!
 echo   Website will update in 1-2 minutes at:
-echo   https://cgiartistry.github.io/WeddingInvitation/
+echo   https://cgiartistry.github.io/AbhishekWeddingInvitation/
 echo ========================================================
 pause
