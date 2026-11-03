@@ -48,15 +48,20 @@ test(6, 'Bride name in Devanagari has anusvara: प्रियांशी श�
 // 7. Bride Name in Devanagari in RSVP Section
 test(7, 'RSVP section mentions प्रियांशी', rsvp.includes('प्रियांशी'));
 
-// 8. Ganesh Pujan added with Mata Pujan in both languages
-const hasGaneshHi = config.includes('श्री गणेश एवं माता पूजन');
-const hasGaneshEn = config.includes('Shri Ganesh & Mata Poojan');
-test(8, 'Ganesh Pujan added to Mata Pujan in Hindi & English', hasGaneshHi && hasGaneshEn);
+// 8. Ganesh Pujan added with Khal Mitti in both languages
+const hasGaneshHi = config.includes('श्री गणेश पूजन एवं खल मिट्टी');
+const hasGaneshEn = config.includes('Shri Ganesh Poojan & Khal Mitti');
+test(8, 'Ganesh Pujan added to Khal Mitti in Hindi & English', hasGaneshHi && hasGaneshEn);
 
-// 9. Ganesh & Mata Pujan Time: 10 am to 3 pm
-const hasGaneshTimeHi = config.includes('प्रातः 10:00 से दोपहर 03:00 तक');
-const hasGaneshTimeEn = config.includes('10:00 AM to 03:00 PM');
-test(9, 'Ganesh & Mata Pujan timing is 10 AM to 3 PM in both languages', hasGaneshTimeHi && hasGaneshTimeEn);
+// 9. Khal Mitti Time: from 4 pm onwards; Mata Poojan Time: from 10 am onwards; Maayan Time: from 9 am onwards
+const hasKhalTimeHi = config.includes('शाम 04:00 बजे से');
+const hasKhalTimeEn = config.includes('04:00 PM onwards');
+const hasMataTimeHi = config.includes('प्रातः 10:00 बजे से');
+const hasMataTimeEn = config.includes('10:00 AM onwards');
+const hasMaayanTimeHi = config.includes('प्रातः 09:00 बजे से');
+const hasMaayanTimeEn = config.includes('09:00 AM onwards');
+test(9, 'Khal Mitti (4 PM+), Mata Poojan (10 AM+), Maayan Poojan (9 AM+) verified',
+  hasKhalTimeHi && hasKhalTimeEn && hasMataTimeHi && hasMataTimeEn && hasMaayanTimeHi && hasMaayanTimeEn);
 
 // 10. Mandap Time: from 11 am, no end time
 const hasMandapTimeHi = config.includes('प्रातः 11:00 बजे से');
@@ -73,9 +78,7 @@ const hasHaldiEvent = config.includes('id: "haldi-mehndi"') && config.includes('
 test(12, 'Haldi & Mehndi event exists on 11 December', hasHaldiEvent);
 
 // 13. Haldi/Mehndi Time: from 4 pm onwards, no end time
-const hasHaldiTimeHi = config.includes('शाम 04:00 बजे से');
-const hasHaldiTimeEn = config.includes('04:00 PM onwards');
-test(13, 'Haldi & Mehndi timing is from 4 PM onwards in both languages', hasHaldiTimeHi && hasHaldiTimeEn);
+test(13, 'Haldi & Mehndi timing is from 4 PM onwards in both languages', hasKhalTimeHi && hasKhalTimeEn);
 
 // 14. Mahila Sangeet Time: from 7 pm, no end time
 const hasSangeetTimeHi = config.includes('शाम 07:00 बजे से');
