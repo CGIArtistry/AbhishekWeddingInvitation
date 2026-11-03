@@ -16,13 +16,16 @@ import bgVivah from "../assets/images/ceremonies/bg_vivah.jpg";
 
 const ceremonyBackgrounds = {
   "khal-mitti": bgKhalMitti,
+  "mata-poojan": bgHaldi,
   "mata-poojan-haldi": bgHaldi,
   "mandap": bgMandap,
   "maayan-poojan": bgMaayan,
   "mamera": bgMamera,
+  "haldi-mehndi": bgHaldi,
   "mahila-sangeet": bgSangeet,
   "sagai": bgSagai,
   "var-nikasi": bgBaraat,
+  "baraat-swagat": bgBaraat,
   "varmala-reception": bgReception,
   "shubh-vivah": bgVivah,
 };
